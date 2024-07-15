@@ -1,0 +1,68 @@
+import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#00bcd4',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  titleContainer: {
+    marginBottom: 20,
+  },
+  titleText: {
+    fontWeight: 'bold',
+    fontSize: 35,
+    color: '#00001F',
+  },
+  infoFields: {
+    width: '100%',
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+  },
+  input: {
+    width: '100%',
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  button: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#007bff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: RFValue(16),
+    fontWeight: 'bold',
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 30,
+  },
+  appName: {
+    fontSize: 35,
+    color: '#00001F',
+
+  }
+});
