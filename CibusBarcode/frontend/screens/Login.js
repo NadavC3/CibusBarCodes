@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, } from 'react-native';
+import { View,KeyboardAvoidingView, ScrollView } from 'react-native';
 import LoginPageTitle from '../components/Login/LoginPageTitle';
 import LoginDetails from '../components/Login/LoginDetails';
 import loginStyles  from '../styles/LoginStyles';
+import RegisterButton from '../components/Login/RegisterButton';
 
 
 const Login = () => {
@@ -11,6 +12,8 @@ const Login = () => {
 
 
       return (
+        <KeyboardAvoidingView style={loginStyles.scrollContainer} behavior="padding" enabled   keyboardVerticalOffset={100}>
+        <ScrollView>
         <View 
             style={loginStyles.container}>
                 <LoginPageTitle/>
@@ -20,7 +23,10 @@ const Login = () => {
                     password={password}
                     setPassword={setPassword}
                 />
+                <RegisterButton/>
         </View>
+        </ScrollView>
+        </KeyboardAvoidingView>
       );
 }
 export default Login;

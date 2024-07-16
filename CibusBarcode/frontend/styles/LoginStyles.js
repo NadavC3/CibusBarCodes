@@ -4,6 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: RFValue(80),
     backgroundColor: '#00bcd4',
     alignItems: 'center',
     justifyContent: 'center',
@@ -63,6 +64,29 @@ export default StyleSheet.create({
   appName: {
     fontSize: 35,
     color: '#00001F',
-
-  }
+  },
+  registerButton: {
+    marginTop: 20,
+    backgroundColor: '#007BFF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  registerButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  registerTitle: {
+    width: RFValue(250),
+    height: RFValue(60),
+    marginBottom: 30,
+  },
+  scrollContainer: {
+    flex: 1, 
+    flexDirection: 'column',
+    justifyContent: 'center',
+    flexGrow: 1,
+    backgroundColor: '#00bcd4',
+  },
 });

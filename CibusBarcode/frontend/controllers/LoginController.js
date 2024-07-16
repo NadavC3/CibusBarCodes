@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from './config';
 
 
 
@@ -9,8 +10,9 @@ const handleLogin = async (username, password) => {
     };
 
     try {
-        // const res = await axios.post(`/login`, user);
-        // const token = res.data.token;
+                  //await axios.get(`${config.baseUrl}/user`
+        const res = await axios.post(`${config.baseUrl}/login`, user);
+        //const token = res.data.token;
         console.log("User logged in successfully");
         return true; 
     } catch (error) {
@@ -19,14 +21,10 @@ const handleLogin = async (username, password) => {
     }
 };
 
-const handleRegister = () => {
-    console.log("Register");
-    // Implement logout logic here
-};
 
 const resetPassword = (email) => {
     console.log("Reset Password for:", email);
-    // Implement password reset logic here
+    // 
 };
 
-export { handleLogin, handleRegister, resetPassword };
+export { handleLogin, resetPassword };

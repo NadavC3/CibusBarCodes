@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import loginStyles  from '../../styles/LoginStyles';
-import {handleLogin} from '../../controllers/LoginController';
+import { handleLogin } from '../../controllers/LoginController';
 import { useNavigation } from '@react-navigation/native';
 
 
