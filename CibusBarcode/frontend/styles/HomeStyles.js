@@ -4,8 +4,11 @@ import { RFValue } from 'react-native-responsive-fontsize';
 const HomeStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
+    paddingTop: RFValue(80),
+    backgroundColor: '#00bcd4',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
   },
   card: {
     marginBottom: 12,

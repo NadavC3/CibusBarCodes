@@ -16,7 +16,7 @@ const LoginDetails = ({ username, setUsername, password, setPassword, message, s
   const handlePress =  async() => {
     const loginSuccess = await handleLogin(username, password);
     if(loginSuccess)
-      navigation.navigate('Home');
+      navigation.navigate('Tabs');
 
     else{
       setMessage("Login failed. Please try again.");
