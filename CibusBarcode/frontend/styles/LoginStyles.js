@@ -82,6 +82,12 @@ export default StyleSheet.create({
     height: RFValue(60),
     marginBottom: 30,
   },
+  errorMessageText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#e62532',
+    textAlign: 'center',
+  },
   scrollContainer: {
     flex: 1, 
     flexDirection: 'column',

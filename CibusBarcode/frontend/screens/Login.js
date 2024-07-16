@@ -9,6 +9,7 @@ import RegisterButton from '../components/Login/RegisterButton';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
 
 
       return (
@@ -22,6 +23,8 @@ const Login = () => {
                     setUsername={setUsername}
                     password={password}
                     setPassword={setPassword}
+                    message={message}
+                    setMessage={setMessage}
                 />
                 <RegisterButton/>
         </View>

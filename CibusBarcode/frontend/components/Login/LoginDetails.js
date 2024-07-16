@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import loginStyles  from '../../styles/LoginStyles';
 import { handleLogin } from '../../controllers/LoginController';
@@ -7,9 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-const LoginDetails = ({ username, setUsername, password, setPassword, }) => {
+const LoginDetails = ({ username, setUsername, password, setPassword, message, setMessage }) => {
 
   const navigation = useNavigation();
+  const [isError, setIsError] = useState(false);
 
 
   const handlePress =  async() => {
@@ -17,6 +18,14 @@ const LoginDetails = ({ username, setUsername, password, setPassword, }) => {
     if(loginSuccess)
       navigation.navigate('Home');
 
+    else{
+      setMessage("Login failed. Please try again.");
+      setIsError(true);
+      setTimeout(() => {
+        setMessage("");
+        setIsError(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -36,6 +45,11 @@ const LoginDetails = ({ username, setUsername, password, setPassword, }) => {
       />
       <TouchableOpacity style={loginStyles.button} onPress={handlePress}>
         <Text style={loginStyles.buttonText}>Login</Text>
+        {isError && message ? (
+            <Text style={loginStyles.errorMessageText}>
+              {message}
+            </Text>
+          ) : null}
       </TouchableOpacity>
     </View>
     );

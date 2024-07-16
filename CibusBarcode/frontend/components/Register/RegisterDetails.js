@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {handleRegister} from '../../controllers/RegisterController'
@@ -7,7 +7,7 @@ import RegisterStyles from '../../styles/RegisterStyles';
 const RegisterDetails = ({ username, setUsername, password, setPassword, email, setEmail, message, setMessage}) => {
 
     const navigation = useNavigation();
-    const [isError, setIsError] = React.useState(false);
+    const [isError, setIsError] = useState(false);
 
 
 
