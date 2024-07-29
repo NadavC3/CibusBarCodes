@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, Text, KeyboardAvoidingView, Platform
 import loginStyles  from '../../styles/LoginStyles';
 import { handleLogin } from '../../controllers/LoginController';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -13,14 +14,20 @@ const LoginDetails = ({ username, setUsername, password, setPassword, message, s
   const [isError, setIsError] = useState(false);
 
 
-  const handlePress =  async() => {
-    const loginSuccess = await handleLogin(username, password);
-    if(loginSuccess)
-      navigation.navigate('Tabs');
-
-    else{
-      setMessage("Login failed. Please try again.");
+  const handlePress = async () => {
+    try {
+      const result = await handleLogin(username, password);
+      if (result.userId) {
+        await AsyncStorage.setItem('userId', result.userId);
+        navigation.navigate('Tabs', { userId: result.userId });
+      } else {
+        setMessage(result.message || "Login failed. Please try again.");
+        setIsError(true);
+      }
+    } catch (error) {
+      setMessage("An unexpected error occurred. Please try again.");
       setIsError(true);
+    } finally {
       setTimeout(() => {
         setMessage("");
         setIsError(false);
@@ -45,14 +52,14 @@ const LoginDetails = ({ username, setUsername, password, setPassword, message, s
       />
       <TouchableOpacity style={loginStyles.button} onPress={handlePress}>
         <Text style={loginStyles.buttonText}>Login</Text>
-        {isError && message ? (
-            <Text style={loginStyles.errorMessageText}>
-              {message}
-            </Text>
-          ) : null}
       </TouchableOpacity>
+      {isError && message ? (
+        <Text style={loginStyles.errorMessageText}>
+          {message}
+        </Text>
+      ) : null}
     </View>
-    );
-  };
+  );
+};
   
   export default LoginDetails;
