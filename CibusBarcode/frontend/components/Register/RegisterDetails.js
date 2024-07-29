@@ -12,22 +12,17 @@ const RegisterDetails = ({ username, setUsername, password, setPassword, email, 
 
 
   const handlePress =  async() => {
-    const registerSuccess = await handleRegister(username, password,email);
-    if (registerSuccess){
-      setMessage("Registration successful!");
-      setIsError(false);
-    }
-    else{
-      setMessage("Registration failed. Please try again.");
-      setIsError(true);
-    }
+    const result = await handleRegister(username, password, email);
+    console.log("registerSuccess = ", result.success);
+    
+    setMessage(result.message);
+    setIsError(!result.success);
+
     setTimeout(() => {
       setMessage("");
     }, 3000);
-
   };
   return (
-
     <View style={RegisterStyles.infoFields}>
       <TextInput
         style={RegisterStyles.input}
@@ -49,16 +44,15 @@ const RegisterDetails = ({ username, setUsername, password, setPassword, email, 
         value={email}
         onChangeText={setEmail}
       />
-      <TouchableOpacity style={RegisterStyles.button} onPress={handlePress} >
+      <TouchableOpacity style={RegisterStyles.button} onPress={handlePress}>
         <Text style={RegisterStyles.buttonText}>Register</Text>
-        {message ? (
+      </TouchableOpacity>
+      {message ? (
         <Text style={isError ? RegisterStyles.errorMessageText : RegisterStyles.successMessageText}>
           {message}
         </Text>
       ) : null}
-      </TouchableOpacity>
     </View>
-
   );
 };
 

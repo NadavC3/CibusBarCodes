@@ -10,14 +10,14 @@ const handleLogin = async (username, password) => {
     };
 
     try {
-                  //await axios.get(`${config.baseUrl}/user`
         const res = await axios.post(`${config.baseUrl}/login`, user);
-        //const token = res.data.token;
+        const userId = res.data.userId;
         console.log("User logged in successfully");
-        return true; 
+        return { userId, message: res.data.message };
     } catch (error) {
         console.error("Error during login:", error);
-        return false;
+        const errorMessage = error.response?.data?.message || "An unexpected error occurred.";
+        return { userId: null, message: errorMessage };
     }
 };
 

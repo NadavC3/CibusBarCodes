@@ -28,7 +28,9 @@ const CustomTabBarButton = ({children, onPress}) =>(
     </TouchableOpacity>
 );
 
-const Tabs = ()=>{
+// const Tabs = (userId)=>{
+const Tabs = ({ route }) => {
+    const { userId } = route.params;
     return(
         <Tab.Navigator
         tabBarOptions = {{
@@ -45,7 +47,10 @@ const Tabs = ()=>{
             }
         }}
         >
-            <Tab.Screen name = "Home" component={Home} options={{
+            <Tab.Screen name = "Home" 
+            component={Home}
+            initialParams={{ userId }} 
+            options={{
                 headerShown: false,
                 tabBarIcon:({focused})=>(
                     <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 60 }}>
@@ -67,7 +72,10 @@ const Tabs = ()=>{
                 }}/>
 
 
-                <Tab.Screen name = "Add" component={Add} 
+                <Tab.Screen 
+                name = "Add" 
+                component={Add} 
+                initialParams={{ userId }}
                 options={{
                     headerShown: false,
                     tabBarIcon:({focused}) => (

@@ -28,9 +28,8 @@ const connectionString = process.env.MONGODB_CONNECTION_STRING;
 
 
 
-const Coupon = require("./Schemas/coupon");
 const User = require("./Schemas/user");
-
+const Coupon = require("./Schemas/coupon");
 
 
 // mongoose.connect(connectionString, {
@@ -99,12 +98,12 @@ app.post("/login",(req,res)=>{
             return res.status(401).json({message:"wrong password"})
         }
         //const token = createToken(user._id);
-        return res.status(200).json({message:"Login successfully"})
+        // Return the user ID upon successful login
+        return res.status(200).json({ message: "Login successfully", userId: user._id });
     }).catch((error) => {
-        console.log("error finding user",error);
-        return res.status(500).json({message:"server error"})
-    })
-
+        console.log("Error finding user", error);
+        return res.status(500).json({ message: "Server error" });
+    });
 });
 
 
@@ -142,3 +141,95 @@ app.post("/register", async (req, res) => {
         res.status(500).json({ message: "Registration error" });
     });
   });
+
+
+  app.post("/addCouponFromSMS", async (req, res) => {
+    console.log('Adding coupon from SMS:');
+
+    const {link, amount, acceptedAt, userId } = req.body;
+
+    console.log('link = ',link);
+    console.log('amount = ',amount);
+    console.log('acceptedAt = ',acceptedAt);
+    console.log('userId = ',userId);
+
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    const coupon = new Coupon({
+        link: link,
+        amount: amount,
+        acceptedAt: acceptedAt,
+    });
+
+    // Check if the coupon already exists
+    const existingCoupon = await Coupon.findOne({ link });
+  
+    if (existingCoupon) {
+     let message;
+     
+     if (existingCoupon.link === link) {
+       message = "Existing Coupon";
+     }
+   
+     return res.status(400).json({ message });
+   }
+
+   try {
+        const savedCoupon = await coupon.save();
+
+        // Add the coupon reference to the user's coupons array
+        user.coupons.push(savedCoupon._id);
+        await user.save();
+
+        res.status(200).json({ message: "Added coupon" });
+    } catch (error) {
+        console.log("error adding coupon", error);
+        res.status(500).json({ message: "Adding coupon error" });
+    }
+});
+
+
+app.get("/getUserCoupons/:userId", async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        // Find the user by userId
+        const user = await User.findById(userId).populate('coupons');
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Return the user's coupons
+        res.status(200).json({ coupons: user.coupons });
+    } catch (error) {
+        console.log("Error retrieving user coupons:", error);
+        res.status(500).json({ message: "Error retrieving user coupons" });
+    }
+});
+
+
+app.delete('/coupons/:userId/:couponId', async (req, res) => {
+    const { userId, couponId } = req.params;
+    try {
+      // Delete the coupon
+      await Coupon.findByIdAndDelete(couponId);
+      
+      // Remove the reference from the user's coupons array
+      await User.findByIdAndUpdate(userId, {
+        $pull: { coupons: couponId }
+      });
+  
+      res.status(200).send({ message: 'Coupon deleted successfully' });
+    } catch (error) {
+      res.status(500).send({ error: 'Failed to delete coupon' });
+    }
+  });
+
+
+

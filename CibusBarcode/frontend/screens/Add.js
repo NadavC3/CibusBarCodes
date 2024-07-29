@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState }  from 'react';
+
 import { View, Text, StyleSheet } from 'react-native';
-import HomeStyles  from '../styles/HomeStyles';
+import AddStyles from '../styles/AddStyles';
+import AddCoupon from '../components/Add/AddCoupon';
 
+const Add = ({ route }) => {
+  const { userId } = route.params; 
+  const [smsMessage, setSmsMessage] = useState('');
 
-const Home = () => {
   return (
-    <View style={HomeStyles.container}>
-      <Text style={HomeStyles.text}>Add copuns here!</Text>
+    <View style={AddStyles.container}>
+      <AddCoupon
+        smsMessage={smsMessage}
+        setSmsMessage={setSmsMessage}
+        userId={userId}
+      />
     </View>
   );
 };
 
 
 
-export default Home;
+export default Add;

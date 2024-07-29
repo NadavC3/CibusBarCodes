@@ -6,6 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     paddingTop: RFValue(80),
     backgroundColor: '#00bcd4',
+    //backgroundColor: '#1f1f1f',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -29,6 +30,7 @@ export default StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
+    minHeight: 265,
   },
   input: {
     width: '100%',

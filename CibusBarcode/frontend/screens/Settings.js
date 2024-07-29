@@ -3,14 +3,14 @@ import { View, Text, StyleSheet } from 'react-native';
 import HomeStyles  from '../styles/HomeStyles';
 
 
-const Home = () => {
+const Settings = () => {
   return (
     <View style={HomeStyles.container}>
-      <Text style={HomeStyles.text}>Welcome to the Settings Page!</Text>
+      <Text style={HomeStyles.text}>No Settings Page yet!</Text>
     </View>
   );
 };
 
 
 
-export default Home;
+export default Settings;
